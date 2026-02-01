@@ -3,6 +3,25 @@ import { Emotion, VoiceOption, PodcastSpeaker } from "../types";
 import { decode, decodeAudioData, audioBufferToWav } from "../utils/audioUtils";
 
 /**
+ * Maps internal emotion keys to adverbs/instruction phrases for the TTS prompt.
+ */
+function getEmotionDirective(emotion: Emotion): string {
+  switch (emotion) {
+    case 'happy': return 'Say happily: ';
+    case 'sad': return 'Say sadly: ';
+    case 'excited': return 'Say excitedly: ';
+    case 'angry': return 'Say angrily: ';
+    case 'romantic': return 'Say in a romantic tone: ';
+    case 'calm': return 'Say calmly: ';
+    case 'motivational': return 'Say with motivation: ';
+    case 'storytelling': return 'Narrate like a story: ';
+    case 'neutral':
+    default:
+      return '';
+  }
+}
+
+/**
  * Synthesize speech from a script with specific emotion and voice profile.
  */
 export async function generateSpeech(
@@ -11,16 +30,16 @@ export async function generateSpeech(
   voice: VoiceOption
 ): Promise<string> {
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-  const prompt = `System: High-Fidelity Neural Speech Synthesis.
-Persona: ${voice.label} (${voice.gender}), ${voice.description}.
-Emotion: ${emotion}.
-Behavior: Natural phrasing, realistic breath control.
-Script: "${text}"`;
+  
+  // Construct the text part with the emotion directive if applicable.
+  // We avoid "System:" prompts as the TTS model tends to read them aloud.
+  const directive = getEmotionDirective(emotion);
+  const finalPrompt = `${directive}${text}`;
 
   try {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash-preview-tts",
-      contents: [{ parts: [{ text: prompt }] }],
+      contents: [{ parts: [{ text: finalPrompt }] }],
       config: {
         responseModalities: [Modality.AUDIO],
         speechConfig: {
@@ -45,7 +64,7 @@ Script: "${text}"`;
 }
 
 /**
- * Synthesize a multi-speaker podcast conversation with advanced conversational delays.
+ * Synthesize a multi-speaker podcast conversation.
  */
 export async function generatePodcast(
   script: string,
@@ -54,18 +73,9 @@ export async function generatePodcast(
 ): Promise<string> {
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
-  const prompt = `System: Professional Podcast Production Module v2.0.
-Generate a high-fidelity conversational master track between ${speakerA.name} and ${speakerB.name}.
-
-STRICT CONVERSATIONAL PACING:
-1. MANDATORY DELAY: Insert a 1.5 to 2.0 second pause after every speaker turn. Do not rush the dialogue.
-2. TURN TAKING: Ensure ${speakerA.name} and ${speakerB.name} sound like they are listening to each other.
-3. PERSONALITY:
-   - ${speakerA.name} (Voice: ${speakerA.voice.label}) should sound ${speakerA.emotion}.
-   - ${speakerB.name} (Voice: ${speakerB.voice.label}) should sound ${speakerB.emotion}.
-4. AUDIO QUALITY: Ensure seamless transitions between voice models.
-
-Script:
+  // Use the documented format for multi-speaker conversations.
+  // This ensures the model treats the input as a transcript to be acted out.
+  const prompt = `TTS the following conversation between ${speakerA.name} and ${speakerB.name}:
 ${script}`;
 
   try {
