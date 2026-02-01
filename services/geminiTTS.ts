@@ -1,9 +1,6 @@
-
 import { GoogleGenAI, Modality } from "@google/genai";
 import { Emotion, VoiceOption, PodcastSpeaker } from "../types";
 import { decode, decodeAudioData, audioBufferToWav } from "../utils/audioUtils";
-
-const API_KEY = "AIzaSyCCJV06PLqQ4gC7MvIRvtPLBPxG6oBc8Nk";
 
 /**
  * Synthesize speech from a script with specific emotion and voice profile.
@@ -13,7 +10,7 @@ export async function generateSpeech(
   emotion: Emotion,
   voice: VoiceOption
 ): Promise<string> {
-  const ai = new GoogleGenAI({ apiKey: API_KEY });
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const prompt = `System: High-Fidelity Neural Speech Synthesis.
 Persona: ${voice.label} (${voice.gender}), ${voice.description}.
 Emotion: ${emotion}.
@@ -55,7 +52,7 @@ export async function generatePodcast(
   speakerA: PodcastSpeaker,
   speakerB: PodcastSpeaker
 ): Promise<string> {
-  const ai = new GoogleGenAI({ apiKey: API_KEY });
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   const prompt = `System: Professional Podcast Production Module v2.0.
 Generate a high-fidelity conversational master track between ${speakerA.name} and ${speakerB.name}.
