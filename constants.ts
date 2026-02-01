@@ -1,4 +1,3 @@
-
 import { Emotion, VoiceOption } from './types';
 
 export const EMOTIONS: { value: Emotion; label: string }[] = [
@@ -20,7 +19,7 @@ export const MALE_VOICES: VoiceOption[] = [
     shortName: 'FEN',
     description: 'Deep, authoritative, and cinematic.', 
     gender: 'male', 
-    geminiVoice: 'fenrir',
+    geminiVoice: 'Fenrir',
     tags: ['Cinematic', 'Authority', 'Deep'],
     technicalProfile: '24kHz Mono / High Resonance'
   },
@@ -30,7 +29,7 @@ export const MALE_VOICES: VoiceOption[] = [
     shortName: 'PCK',
     description: 'Youthful, energetic, and bright.', 
     gender: 'male', 
-    geminiVoice: 'puck',
+    geminiVoice: 'Puck',
     tags: ['Youthful', 'Upbeat', 'Friendly'],
     technicalProfile: '24kHz Mono / Low-Freq Warmth'
   },
@@ -40,7 +39,7 @@ export const MALE_VOICES: VoiceOption[] = [
     shortName: 'CHR',
     description: 'Professional, calm, and neutral.', 
     gender: 'male', 
-    geminiVoice: 'charon',
+    geminiVoice: 'Charon',
     tags: ['Corporate', 'Steady', 'Mature'],
     technicalProfile: '24kHz Mono / Balanced Mid'
   },
@@ -53,7 +52,7 @@ export const FEMALE_VOICES: VoiceOption[] = [
     shortName: 'KOR',
     description: 'Soft, gentle, and nurturing.', 
     gender: 'female', 
-    geminiVoice: 'kore',
+    geminiVoice: 'Kore',
     tags: ['Gentle', 'Soft', 'Meditation'],
     technicalProfile: '24kHz Mono / High Clarity'
   },
@@ -63,7 +62,7 @@ export const FEMALE_VOICES: VoiceOption[] = [
     shortName: 'ZPH',
     description: 'Modern, clear, and expressive.', 
     gender: 'female', 
-    geminiVoice: 'zephyr',
+    geminiVoice: 'Zephyr',
     tags: ['Modern', 'Podcast', 'Sharp'],
     technicalProfile: '24kHz Mono / Crisp Highs'
   },
@@ -73,7 +72,7 @@ export const FEMALE_VOICES: VoiceOption[] = [
     shortName: 'AOE',
     description: 'Sophisticated, mature, and rich.', 
     gender: 'female', 
-    geminiVoice: 'aoede',
+    geminiVoice: 'Aoede',
     tags: ['Narrative', 'Elegant', 'Deep'],
     technicalProfile: '24kHz Mono / Natural Reverb'
   },
