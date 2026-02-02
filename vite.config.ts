@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     define: {
-      'process.env.API_KEY': JSON.stringify(env.API_KEY || "AIzaSyCRlz90qjckOiZ4yxP5MR5_pJLMZg0FQNQ")
+      'process.env.API_KEY': JSON.stringify(env.API_KEY || "AIzaSyBU-meXPeUuGXWBuOio0yXLMzQUY2MLSPg")
     }
   };
 });
