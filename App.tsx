@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { EMOTIONS, MALE_VOICES, FEMALE_VOICES, ALL_VOICES } from './constants';
 import { Emotion, GeneratedSpeech, VoiceOption } from './types';
@@ -67,8 +66,9 @@ const App: React.FC = () => {
         durationEstimate: stats.duration, type: view,
       };
       setHistory(prev => [newEntry, ...prev]);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      alert(`Synthesis Failed: ${err.message || 'Unknown error'}. Please check your API Key settings.`);
     } finally {
       setIsGenerating(false);
     }
